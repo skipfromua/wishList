@@ -9,7 +9,7 @@ class WishTestlistCase(APITestCase):
         self.TestUser = User.objects.create_user('TestUser')
         self.wishlist_test = Wishlist.objects.create(
             wishlistName='TestWishlist',
-            wishlistOwner=self.TestUser,
+            wishlistOwnerID=self.TestUser,
             isSharedToOthers=False
         )
         self.wishObject_test = WishObject.objects.create(

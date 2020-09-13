@@ -5,8 +5,6 @@ from .serializers import WishlistDetailSerializer, WishlistListSerializer, \
 from .models import Wishlist, WishObject
 from .permissions import AuthorPermissions
 from rest_framework import permissions
-
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user
 from django.core.exceptions import ObjectDoesNotExist
