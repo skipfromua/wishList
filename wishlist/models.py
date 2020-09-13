@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Wishlist(models.Model):
     wishlistName = models.CharField(verbose_name='Name of wishlist', max_length=255)
-    wishlistOwner = models.ForeignKey(User, on_delete=models.CASCADE)
+    wishlistOwnerID = models.ForeignKey(User, on_delete=models.CASCADE)
     isSharedToOthers = models.BooleanField(verbose_name='Others can see current wishlist')
 
     def __str__(self):
