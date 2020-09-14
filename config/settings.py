@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     'wishlist',
+    'main',
 ]
 
 SITE_ID = 1

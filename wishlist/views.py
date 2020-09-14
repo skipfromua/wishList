@@ -5,18 +5,6 @@ from .serializers import WishlistDetailSerializer, WishlistListSerializer, \
 from .models import Wishlist, WishObject
 from .permissions import AuthorPermissions
 from rest_framework import permissions
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user
-from django.core.exceptions import ObjectDoesNotExist
-
-
-def main(request):
-    user = get_user(request)
-    try:
-        user_id = User.objects.get(username=user).id
-        return HttpResponse('Hello {}, your id is {}'.format(user, user_id))
-    except ObjectDoesNotExist:
-        return HttpResponse('Hello, to use wishlists you must login first')
 
 
 class WishObjectListView(generics.ListAPIView, generics.CreateAPIView):
@@ -49,3 +37,22 @@ class WishlistDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Wishlist.objects.all()
     permission_classes = [AuthorPermissions]
 
+
+def WishObjectReserveView(request, to_wishlist_id):
+    print('i am here')
+    if str(request.user) != 'AnonymousUser':
+        pk = 5
+        to_wishlist = Wishlist.objects.filter(id=to_wishlist_id)
+        current_wishObject = WishObject.objects.filter(id=pk)
+        new_wishObject = WishObject(
+            objectName=current_wishObject.objectName,
+            objectDescription=current_wishObject.objectDescription,
+            reasonToHave=current_wishObject.reasonToHave,
+            objectLocation=current_wishObject.objectLocation,
+            requirementsToDo=current_wishObject.requirementsToDo,
+            wishlistId=to_wishlist.wishlistId
+        )
+        new_wishObject.save()
+        return HttpResponse('Complete')
+    else:
+        HttpResponse('incomplete')
