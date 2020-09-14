@@ -3,6 +3,25 @@
 
 {% if username %}
 <h1> HELLO {{ username }}, your ID is {{ user_id }} </h1>
+    <h2>Your wishlists: </h2>
+    {% for wishlist in your_wishlists %}
+        <li> <b>{{ wishlist.wishlistName }}</b>, id is {{ wishlist.id }}</li>
+    {% endfor %}
+    <h2> Shared wishlists: </h2>
+    {% for wishlist in shared_wishlists %}
+        <li> <b>{{ wishlist.wishlistName }}</b>, id is {{ wishlist.id }}, owner is - {{ wishlist.wishlistOwnerID }}</li>
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <h2>To reserve item from wishlist:</h2>
+        <p>Enter ID of wishlist from wich you want to reserve:</p>
+        <input type="text" name="wishlist_from">
+        <p>Enter ID of wishlist wich you want update:</p>
+        <input type="text" name="wishlist_to">
+        <p>Enter ID of wishObject wich you want to reserve:</p>
+        <input type="text" name="wishObject">
+        <input type="submit">
+    </form>
 {% else %}
 <h1> HELLO, {{ message }} </h1>
 {% endif %}
