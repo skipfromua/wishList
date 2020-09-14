@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if username %}
+<h1> HELLO {{ username }}, your ID is {{ user_id }} </h1>
+{% else %}
+<h1> HELLO, {{ message }} </h1>
+{% endif %}
+
+{% endblock %}
