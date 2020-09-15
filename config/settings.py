@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-from .configure import Project_SECRET_KEY, DataBasePassword
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = Project_SECRET_KEY
+SECRET_KEY = os.environ['SECRET_KEY_DJANGO_WISHLIST']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -101,7 +100,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'wishlist',
         'USER': 'wishlistkeeper',
-        'PASSWORD': DataBasePassword,
+        'PASSWORD': os.environ['DATABASE_PASSWORD_DJANGO_WISHLIST'],
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
