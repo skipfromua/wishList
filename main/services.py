@@ -32,8 +32,7 @@ def post_request(request):
     if request.method == 'POST':
         needed_object = _find_object_in_selected_wishlist(request)
         if needed_object:
-            if request.user.id == Wishlist.objects.filter(
-                    id=int(request.POST['wishlist_to'])).values('wishlistOwnerID')[0]['wishlistOwnerID']:
+            if request.user.id == _get_wishlist_owner_by_requested_id(request):
                 my_new_object = _create_same_object_for_another_wishlist(request, needed_object)
                 my_new_object.save()
                 context.update({'status_msg': 'You successfully added object into one of your wishlists'})
@@ -42,6 +41,10 @@ def post_request(request):
         else:
             context.update({'status_msg': 'Cannot find specified object =('})
     return context
+
+
+def _get_wishlist_owner_by_requested_id(request):
+    return Wishlist.objects.filter(id=int(request.POST['wishlist_to'])).values('wishlistOwnerID')[0]['wishlistOwnerID']
 
 
 def _find_shared_wishlists(user_id):
